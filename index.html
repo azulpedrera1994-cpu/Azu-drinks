@@ -1,15 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="es-AR" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Barra 1L • Pedidos de Tragos de 1 Litro</title>
+  <title>La Previa 1L | Tragos de 1 Litro Delivery & Take Away</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -20,15 +21,14 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
             night: {
-              950: '#07090e',
-              900: '#0f131d',
-              850: '#141926',
-              800: '#1b2233',
-              700: '#27314a',
+              950: '#07080d',
+              900: '#0f121c',
+              850: '#141826',
+              800: '#1b2033',
+              700: '#272f4a',
             }
           }
         }
@@ -38,1418 +38,376 @@
 
   <style>
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #07090e; }
-    ::-webkit-scrollbar-thumb { background: #27314a; border-radius: 9999px; }
+    ::-webkit-scrollbar-track { background: #07080d; }
+    ::-webkit-scrollbar-thumb { background: #272f4a; border-radius: 9999px; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 18px rgba(139, 92, 246, 0.35); }
+      50% { box-shadow: 0 0 28px rgba(236, 72, 153, 0.45); }
+    }
+    .glow-btn { animation: pulseGlow 3s infinite; }
   </style>
 </head>
 <body class="bg-night-950 text-slate-100 font-sans antialiased selection:bg-fuchsia-500 selection:text-white pb-28">
 
-  <!-- =====================================================================
-       HEADER / BANNER PRINCIPAL DE MARCA
-  ====================================================================== -->
-  <header class="sticky top-0 z-40 bg-night-900/95 backdrop-blur-md border-b border-slate-800/90">
+  <!-- BANNER PROMO SUPERIOR -->
+  <div class="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white text-center px-3 py-1.5 text-xs font-bold tracking-wide">
+    <span id="uiPromoBanner">🔥 TODOS LOS TRAGOS EN FORMATO 1 LITRO (1000 ml) • VIE, SÁB Y DOM 🔥</span>
+  </div>
+
+  <!-- HEADER PÚBLICO -->
+  <header class="sticky top-0 z-30 bg-night-900/90 backdrop-blur-md border-b border-slate-800/80">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
       <div class="flex items-center gap-3 min-w-0">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-fuchsia-600 via-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-fuchsia-600/20 shrink-0">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-fuchsia-500 to-violet-600 flex items-center justify-center shadow-lg shadow-fuchsia-600/25 shrink-0">
           <i class="fa-solid fa-martini-glass-citrus text-white text-xl"></i>
         </div>
         <div class="min-w-0">
-          <div class="flex items-center gap-2">
-            <h1 id="brandTitleDisplay" class="font-black text-base sm:text-xl text-white tracking-tight truncate">
-              Barra 1L • Tragos & Previa
-            </h1>
-            <span class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-extrabold uppercase">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Todo en 1 Litro
+          <h1 id="uiStoreName" class="font-black text-base sm:text-xl text-white tracking-tight truncate">
+            LA PREVIA 1L
+          </h1>
+          <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-slate-400">
+            <span class="inline-flex items-center gap-1 text-emerald-400 font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="uiScheduleText">Vie, Sáb y Dom • 19:00 a 03:00 hs</span>
             </span>
+            <span class="hidden sm:inline">•</span>
+            <span id="uiZoneText" class="truncate">Lanús y Zona Sur</span>
           </div>
-          <p id="brandScheduleDisplay" class="text-xs text-slate-400 truncate mt-0.5">
-            Viernes, Sábados y Domingos • Delivery y Take Away
-          </p>
         </div>
       </div>
 
-      <!-- Botón discreto Modo Dueña -->
-      <!-- 1. Ventana emergente de contraseña para el Modo Dueña -->
-<div id="modalClaveDuena" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; padding:16px;">
-  <div style="background:#1c192b; color:#fff; padding:20px; border-radius:14px; width:100%; max-width:340px; border:1px solid rgba(255,255,255,0.15);">
-    <h3 style="margin:0 0 10px; font-size:1.05rem;">Clave del Modo Dueña</h3>
-    <input id="inputClaveDuena" type="password" placeholder="Ingresá tu contraseña" style="width:100%; padding:10px; border-radius:8px; border:1px solid #444; background:#12101c; color:#fff; margin-bottom:8px;" />
-    <p id="errorClaveDuena" style="color:#ff6b8b; font-size:0.82rem; min-height:18px; margin:0 0 10px;"></p>
-    <div style="display:flex; gap:8px; justify-content:flex-end;">
-      <button type="button" onclick="cerrarModalClaveDuena()" style="padding:8px 12px; border-radius:8px; border:none; background:#332e4a; color:#fff; cursor:pointer;">Cancelar</button>
-      <button type="button" onclick="validarClaveDuena()" style="padding:8px 14px; border-radius:8px; border:none; background:#ff4d8d; color:#fff; font-weight:700; cursor:pointer;">Entrar</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // Cambiá "1994" por la contraseña o PIN que quieras usar
-  const CLAVE_MODO_DUENA = "1994";
-  let modoDuenaAutorizado = false;
-
-  function pedirClaveModoDuena(callbackAlEntrar) {
-    if (modoDuenaAutorizado) {
-      if (typeof callbackAlEntrar === "function") callbackAlEntrar();
-      return;
-    }
-    window._accionPostClaveDuena = callbackAlEntrar;
-    const modal = document.getElementById("modalClaveDuena");
-    const input = document.getElementById("inputClaveDuena");
-    const error = document.getElementById("errorClaveDuena");
-    error.textContent = "";
-    input.value = "";
-    modal.style.display = "flex";
-    setTimeout(() => input.focus(), 50);
-  }
-
-  function cerrarModalClaveDuena() {
-    document.getElementById("modalClaveDuena").style.display = "none";
-    window._accionPostClaveDuena = null;
-  }
-
-  function validarClaveDuena() {
-    const ingresada = document.getElementById("inputClaveDuena").value;
-    const error = document.getElementById("errorClaveDuena");
-    if (ingresada === CLAVE_MODO_DUENA) {
-      modoDuenaAutorizado = true;
-      const fn = window._accionPostClaveDuena;
-      cerrarModalClaveDuena();
-      if (typeof fn === "function") fn();
-    } else {
-      error.textContent = "Contraseña incorrecta.";
-    }
-  }
-
-  document.addEventListener("keydown", function (e) {
-    const modal = document.getElementById("modalClaveDuena");
-    if (modal && modal.style.display === "flex" && e.key === "Enter") {
-      validarClaveDuena();
-    }
-  });
-</script>
+      <!-- Botón Carrito en Header -->
       <button
-        onclick="openOwnerModal()"
-        title="Configurar precios, stock y WhatsApp"
-        class="px-3 py-2 rounded-xl bg-night-800 hover:bg-night-700 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition shrink-0"
+        onclick="openCartDrawer()"
+        class="relative px-3.5 py-2.5 rounded-2xl bg-night-800 hover:bg-night-700 border border-slate-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 transition shrink-0"
       >
-        <i class="fa-solid fa-sliders text-fuchsia-400"></i>
-        <span class="hidden sm:inline">Modo Dueña</span>
+        <i class="fa-solid fa-bag-shopping text-fuchsia-400 text-base"></i>
+        <span class="hidden sm:inline">Mi Pedido</span>
+        <span id="headerCartBadge" class="px-2 py-0.5 rounded-full bg-fuchsia-600 text-white text-xs font-extrabold">0</span>
       </button>
     </div>
 
-    <!-- Barra de Búsqueda + Filtros por Categoría -->
-    <div class="max-w-5xl mx-auto px-4 pb-3 pt-1 space-y-2.5">
+    <!-- BUSCADOR Y FILTROS DE CATEGORÍA -->
+    <div class="max-w-5xl mx-auto px-4 pb-3 space-y-2.5">
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
         <input
           type="text"
           id="searchInput"
           oninput="renderCatalog()"
-          placeholder="Buscá tu trago de 1L (ej: Gin Tonic, Galactic, Campari, Daiquiri, Sin alcohol)..."
-          class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-night-950 border border-slate-800 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-fuchsia-500 transition"
+          placeholder="Buscá tu trago de 1L (ej: Gin, Galactic, Campari, Frutilla, Sin alcohol)..."
+          class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-night-950 border border-slate-800 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-fuchsia-500 transition"
         />
       </div>
 
-      <div id="categoryPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-        <!-- Pills dinámicas -->
+      <div id="categoryPills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
+        <!-- Se renderizan por JS -->
       </div>
     </div>
   </header>
 
-  <!-- =====================================================================
-       CONTENIDO PRINCIPAL: PROMOS + CATÁLOGO DE TRAGOS DE 1 LITRO
-  ====================================================================== -->
-  <main class="max-w-5xl mx-auto px-4 pt-5 space-y-7">
+  <!-- CONTENIDO PRINCIPAL DE LA TIENDA -->
+  <main class="max-w-5xl mx-auto px-4 pt-5 space-y-8">
 
-    <!-- SECCIÓN DE COMBOS PROMOCIONALES (1 LITRO) -->
+    <!-- SECCIÓN PROMOS Y COMBOS DE LITRO -->
     <section id="combosSection" class="space-y-3">
       <div class="flex items-center justify-between">
-        <h2 class="text-sm sm:text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
-          <i class="fa-solid fa-fire text-amber-400"></i>
-          <span>Combos de Finde (1 Litro c/u)</span>
+        <h2 class="text-sm sm:text-base font-extrabold uppercase tracking-wider text-fuchsia-400 flex items-center gap-2">
+          <i class="fa-solid fa-fire"></i>
+          <span>Combos de Previa (1 Litro c/u)</span>
         </h2>
-        <span class="text-[11px] text-slate-400">Ideales para compartir</span>
+        <span class="text-[11px] text-slate-400">¡Ahorrá pidiendo en grupo!</span>
       </div>
 
       <div id="combosGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        <!-- Tarjetas de combos -->
+        <!-- Tarjetas de combos dinámicas -->
       </div>
     </section>
 
-    <!-- CATÁLOGO COMPLETO DE TRAGOS 1L -->
-    <section class="space-y-3">
-      <div class="flex items-center justify-between">
-        <h2 id="catalogSectionTitle" class="text-sm sm:text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
-          <i class="fa-solid fa-bottle-droplet text-cyan-400"></i>
-          <span>Carta Completa (Todos en Vaso/Botella de 1 Litro)</span>
+    <!-- CATÁLOGO DE TRAGOS DE 1 LITRO -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+        <h2 id="catalogSectionTitle" class="text-base sm:text-lg font-extrabold text-white">
+          Todos los Tragos (1 Litro)
         </h2>
-        <span id="catalogCountLabel" class="text-xs text-slate-400 font-mono">18 opciones</span>
+        <span id="catalogCountLabel" class="text-xs text-slate-400">19 opciones</span>
       </div>
 
       <div id="drinksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Tarjetas de tragos -->
+        <!-- Tarjetas de tragos dinámicas -->
       </div>
     </section>
+
   </main>
 
-  <!-- =====================================================================
-       BARRA FLOTANTE INFERIOR DEL CARRITO
-  ====================================================================== -->
-  <div id="floatingCartBar" class="fixed bottom-4 inset-x-0 z-40 px-4 transition-all duration-300 translate-y-28 opacity-0 pointer-events-none">
-    <div class="max-w-2xl mx-auto">
-      <button
-        onclick="openCheckoutModal()"
-        class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-fuchsia-600 via-violet-600 to-indigo-600 hover:from-fuchsia-500 hover:to-indigo-500 text-white shadow-2xl shadow-fuchsia-600/30 flex items-center justify-between gap-3 transition transform active:scale-[0.99]"
-      >
-        <div class="flex items-center gap-3">
-          <span id="floatingCartCount" class="w-8 h-8 rounded-xl bg-white/20 font-mono font-black text-sm flex items-center justify-center">
-            0
-          </span>
-          <div class="text-left">
-            <span class="block text-xs sm:text-sm font-extrabold leading-tight">Ver mi pedido y pedir por WhatsApp</span>
-            <span class="block text-[11px] text-fuchsia-100/80">Completá dirección y teléfono en el siguiente paso</span>
-          </div>
-        </div>
-        <span id="floatingCartTotal" class="font-mono font-black text-base sm:text-lg">
-          $0
-        </span>
-      </button>
+  <!-- FOOTER DISCRETO CON ACCESO DUEÑA -->
+  <footer class="max-w-5xl mx-auto px-4 mt-14 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+    <div class="text-center sm:text-left space-y-1">
+      <p class="font-semibold text-slate-400">Pedidos sujetos a disponibilidad • Bebidas alcohólicas solo para mayores de 18 años.</p>
+      <p id="footerPickupInfo">Punto de retiro Take Away: Lanús Centro (coordinamos dirección exacta al confirmar).</p>
     </div>
+
+    <button
+      onclick="openOwnerLoginModal()"
+      class="px-3.5 py-2 rounded-xl bg-night-900 hover:bg-night-800 border border-slate-800 text-slate-400 hover:text-white font-semibold flex items-center gap-2 transition shrink-0"
+    >
+      <i class="fa-solid fa-lock text-fuchsia-400"></i>
+      <span>Modo Dueña</span>
+    </button>
+  </footer>
+
+  <!-- BARRA FLOTANTE INFERIOR DE CARRITO (CUANDO HAY ITEMS) -->
+  <div id="floatingCartBar" class="fixed bottom-4 left-4 right-4 z-30 max-w-2xl mx-auto hidden">
+    <button
+      onclick="openCartDrawer()"
+      class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-extrabold text-sm shadow-2xl glow-btn flex items-center justify-between transition"
+    >
+      <div class="flex items-center gap-2.5">
+        <span id="floatBarCount" class="px-2.5 py-0.5 rounded-lg bg-black/30 text-xs font-black">0 L</span>
+        <span>Ver mi pedido y finalizar</span>
+      </div>
+      <span id="floatBarTotal" class="text-base font-black">$0</span>
+    </button>
   </div>
 
   <!-- =====================================================================
-       MODAL 1: PERSONALIZAR TRAGO DE 1 LITRO ANTES DE AGREGAR
+       MODAL DE PERSONALIZACIÓN DE TRAGO DE 1 LITRO
   ====================================================================== -->
   <div id="drinkModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-0 sm:p-4">
-    <div class="w-full max-w-md bg-night-900 border-t sm:border border-slate-700 rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+    <div class="w-full max-w-md bg-night-900 border-t sm:border border-slate-700 rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
         <div>
-          <span id="modalDrinkBadge" class="px-2 py-0.5 rounded-md bg-fuchsia-500/20 text-fuchsia-300 text-[10px] font-extrabold uppercase">
-            1 Litro (1.000 ml)
+          <span id="modalDrinkCat" class="px-2.5 py-0.5 rounded-md bg-fuchsia-500/15 text-fuchsia-300 text-[10px] font-extrabold uppercase">
+            Categoría
           </span>
-          <h3 id="modalDrinkName" class="text-lg font-black text-white mt-1">Nombre del Trago</h3>
-          <p id="modalDrinkDesc" class="text-xs text-slate-400 mt-0.5 leading-relaxed">Ingredientes</p>
+          <h3 id="modalDrinkName" class="text-lg font-black text-white mt-1">Nombre del Trago (1L)</h3>
         </div>
-        <button onclick="closeDrinkModal()" class="w-8 h-8 rounded-xl bg-night-800 text-slate-400 hover:text-white flex items-center justify-center shrink-0">
+        <button onclick="closeDrinkModal()" class="w-8 h-8 rounded-full bg-night-800 text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- Selector de Variante / Sabor (si aplica) -->
-      <div id="modalVariantsWrapper" class="space-y-1.5 hidden">
-        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
-          Elegí el sabor / variante:
-        </label>
+      <p id="modalDrinkDesc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        Descripción de ingredientes.
+      </p>
+
+      <!-- Selector de sabor/variante si corresponde -->
+      <div id="modalVariantsWrapper" class="hidden space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Elegí el sabor / variante *</label>
         <div id="modalVariantsList" class="grid grid-cols-2 gap-2">
-          <!-- Botones de variante -->
+          <!-- Opciones dinámicas -->
         </div>
       </div>
 
-      <!-- Opciones rápidas para delivery -->
+      <!-- Notas / preferencias de envío -->
       <div class="space-y-1.5">
-        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
-          ¿Cómo preferís recibirlo? (Opcional)
+        <label for="modalDrinkNote" class="block text-xs font-bold uppercase tracking-wider text-slate-400">
+          Aclaraciones (opcional)
         </label>
-        <div class="flex flex-wrap gap-1.5" id="quickNotesChips">
-          <button type="button" onclick="toggleQuickNote(this, 'Listo para tomar con hielo')" class="quick-note-btn px-2.5 py-1.5 rounded-xl bg-night-800 border border-slate-700 text-xs text-slate-300 hover:border-fuchsia-500 transition">
-            🧊 Listo con hielo
-          </button>
-          <button type="button" onclick="toggleQuickNote(this, 'Gaseosa / Tónica cerrada aparte')" class="quick-note-btn px-2.5 py-1.5 rounded-xl bg-night-800 border border-slate-700 text-xs text-slate-300 hover:border-fuchsia-500 transition">
-            🥤 Gaseosa/tónica aparte
-          </button>
-          <button type="button" onclick="toggleQuickNote(this, 'Poco hielo')" class="quick-note-btn px-2.5 py-1.5 rounded-xl bg-night-800 border border-slate-700 text-xs text-slate-300 hover:border-fuchsia-500 transition">
-            ❄️ Poco hielo
-          </button>
-        </div>
         <input
           type="text"
-          id="modalCustomNote"
-          placeholder="¿Alguna otra aclaración? (Ej: sin limón, extra dulce...)"
-          class="w-full mt-1.5 px-3 py-2 rounded-xl bg-night-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-fuchsia-500"
+          id="modalDrinkNote"
+          placeholder="Ej: Gaseosa cerrada aparte, con poco hielo, etc."
+          class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-fuchsia-500"
         />
       </div>
 
-      <!-- Cantidad de Litros + Botón Confirmar -->
-      <div class="pt-2 border-t border-slate-800 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-2 bg-night-950 border border-slate-800 rounded-2xl p-1.5">
-          <button onclick="changeModalQty(-1)" class="w-9 h-9 rounded-xl bg-night-800 hover:bg-night-700 text-white font-black text-base flex items-center justify-center">-</button>
-          <span id="modalQtyDisplay" class="w-8 text-center font-mono font-black text-base text-white">1</span>
-          <button onclick="changeModalQty(1)" class="w-9 h-9 rounded-xl bg-night-800 hover:bg-night-700 text-white font-black text-base flex items-center justify-center">+</button>
+      <!-- Cantidad de Litros + Botón Agregar -->
+      <div class="pt-2 flex items-center gap-3">
+        <div class="flex items-center bg-night-950 border border-slate-700 rounded-2xl p-1">
+          <button onclick="changeModalQty(-1)" class="w-9 h-9 rounded-xl bg-night-800 hover:bg-night-700 text-white font-black">-</button>
+          <span id="modalDrinkQty" class="w-10 text-center font-extrabold text-sm text-white">1</span>
+          <button onclick="changeModalQty(1)" class="w-9 h-9 rounded-xl bg-night-800 hover:bg-night-700 text-white font-black">+</button>
         </div>
 
         <button
-          onclick="confirmAddToCart()"
-          class="flex-1 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm flex items-center justify-between shadow-lg shadow-emerald-600/20 transition"
+          onclick="confirmAddDrinkToCart()"
+          class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-extrabold text-xs sm:text-sm flex items-center justify-between shadow-lg transition"
         >
           <span>Agregar al pedido</span>
-          <span id="modalSubtotalDisplay" class="font-mono font-black">$0</span>
+          <span id="modalDrinkSubtotal">$0</span>
         </button>
       </div>
     </div>
   </div>
 
   <!-- =====================================================================
-       MODAL 2: CARRITO, DATOS DEL CLIENTE Y ENVÍO A WHATSAPP
+       DRAWER LATERAL DE CARRITO Y CHECKOUT HACIA WHATSAPP
   ====================================================================== -->
-  <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/85 backdrop-blur-sm p-0 sm:p-4">
-    <div class="w-full max-w-lg bg-night-900 border-t sm:border border-slate-700 rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl max-h-[94vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <div>
-          <h3 class="text-lg font-black text-white flex items-center gap-2">
-            <i class="fa-solid fa-bag-shopping text-fuchsia-400"></i>
-            <span>Tu Pedido de 1 Litro</span>
-          </h3>
-          <p class="text-[11px] text-slate-400">Completá tus datos para enviarlo directo por WhatsApp</p>
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden justify-end bg-black/80 backdrop-blur-sm">
+    <div class="w-full max-w-md bg-night-900 border-l border-slate-800 h-full flex flex-col shadow-2xl">
+      <!-- Header Drawer -->
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-night-950/60">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-bag-shopping text-fuchsia-400 text-lg"></i>
+          <div>
+            <h3 class="font-black text-base text-white">Tu Pedido (1 Litro c/u)</h3>
+            <p class="text-[11px] text-slate-400">Completá tus datos y envialo directo por WhatsApp</p>
+          </div>
         </div>
-        <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-xl bg-night-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <button onclick="closeCartDrawer()" class="w-9 h-9 rounded-xl bg-night-800 hover:bg-night-700 text-slate-300 flex items-center justify-center">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- Lista de items en el carrito -->
-      <div id="cartItemsContainer" class="space-y-2.5 max-h-52 overflow-y-auto pr-1">
-        <!-- Items dinámicos -->
-      </div>
-
-      <!-- Modalidad de Entrega -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
-          1. ¿Cómo lo recibís?
-        </label>
-        <div class="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            id="btnDeliveryMode"
-            onclick="setDeliveryMode('delivery')"
-            class="p-2.5 rounded-xl border text-left transition bg-fuchsia-600/20 border-fuchsia-500 text-white"
-          >
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold"><i class="fa-solid fa-motorcycle mr-1 text-fuchsia-400"></i> Envío a Domicilio</span>
-            </div>
-            <span id="deliveryFeeLabel" class="text-[11px] text-slate-300 font-mono block mt-0.5">+$1.500 envío</span>
-          </button>
-
-          <button
-            type="button"
-            id="btnPickupMode"
-            onclick="setDeliveryMode('pickup')"
-            class="p-2.5 rounded-xl border text-left transition bg-night-950 border-slate-800 text-slate-400 hover:text-white"
-          >
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold"><i class="fa-solid fa-store mr-1 text-emerald-400"></i> Retiro / Take Away</span>
-            </div>
-            <span class="text-[11px] text-emerald-400 font-semibold block mt-0.5">Sin cargo</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Datos del Cliente (Nombre, Teléfono, Dirección) -->
-      <div class="space-y-2.5">
-        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
-          2. Tus Datos de Contacto y Entrega
-        </label>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          <div>
-            <label class="block text-[11px] text-slate-400 mb-1">Tu Nombre *</label>
-            <input
-              type="text"
-              id="custName"
-              placeholder="Ej: Martín Pérez"
-              class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:border-fuchsia-500"
-            />
-          </div>
-          <div>
-            <label class="block text-[11px] text-slate-400 mb-1">Tu Teléfono / WhatsApp *</label>
-            <input
-              type="tel"
-              id="custPhone"
-              placeholder="Ej: 11 5544-3322"
-              class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:border-fuchsia-500"
-            />
-          </div>
+      <!-- Cuerpo scrolleable del carrito -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-5">
+        <!-- Lista de items agregados -->
+        <div id="cartItemsContainer" class="space-y-2.5">
+          <!-- Items dinámicos -->
         </div>
 
-        <!-- Campos de Dirección (solo si es Delivery) -->
-        <div id="addressFieldsWrapper" class="space-y-2">
-          <div>
-            <label class="block text-[11px] text-slate-400 mb-1">Dirección exacta (Calle y altura) *</label>
-            <input
-              type="text"
-              id="custAddress"
-              placeholder="Ej: Av. Hipólito Yrigoyen 4520"
-              class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:border-fuchsia-500"
-            />
+        <!-- Formulario de Entrega y Datos del Cliente -->
+        <div id="checkoutFormSection" class="space-y-4 pt-3 border-t border-slate-800">
+          <!-- Modalidad: Delivery o Take Away -->
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">¿Cómo lo recibís? *</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                id="btnModeDelivery"
+                onclick="setDeliveryMode('delivery')"
+                class="py-2.5 px-3 rounded-xl border text-xs font-extrabold flex flex-col items-center gap-0.5 transition bg-fuchsia-600/20 border-fuchsia-500 text-white"
+              >
+                <span>🛵 Delivery</span>
+                <span id="lblDeliveryCost" class="text-[10px] font-semibold text-fuchsia-300">+$1.500 envío</span>
+              </button>
+              <button
+                type="button"
+                id="btnModePickup"
+                onclick="setDeliveryMode('pickup')"
+                class="py-2.5 px-3 rounded-xl border text-xs font-extrabold flex flex-col items-center gap-0.5 transition bg-night-950 border-slate-800 text-slate-400"
+              >
+                <span>🏃 Retiro / Take Away</span>
+                <span class="text-[10px] font-semibold text-emerald-400">Sin cargo ($0)</span>
+              </button>
+            </div>
+            <p id="pickupAddressNotice" class="hidden text-[11px] text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-2.5 mt-1.5">
+              <i class="fa-solid fa-location-dot mr-1"></i> Retirás por: <strong id="lblPickupAddress">Lanús Centro</strong>
+            </p>
           </div>
-          <div class="grid grid-cols-2 gap-2.5">
+
+          <!-- Nombre y Teléfono -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <div>
-              <label class="block text-[11px] text-slate-400 mb-1">Entre calles / Barrio</label>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">Tu Nombre *</label>
+              <input
+                type="text"
+                id="custName"
+                placeholder="Ej: Martina"
+                class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-fuchsia-500"
+              />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">Tu Teléfono / WhatsApp *</label>
+              <input
+                type="tel"
+                id="custPhone"
+                placeholder="Ej: 11 5555-4444"
+                class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-fuchsia-500"
+              />
+            </div>
+          </div>
+
+          <!-- Dirección (solo visible si es Delivery) -->
+          <div id="deliveryAddressWrapper" class="space-y-2">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">Dirección de entrega (Calle, altura, piso/depto) *</label>
+              <input
+                type="text"
+                id="custAddress"
+                placeholder="Ej: Av. 9 de Julio 1450, Piso 2 B - Lanús"
+                class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-fuchsia-500"
+              />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">Entre calles / Referencia</label>
               <input
                 type="text"
                 id="custCrossStreets"
-                placeholder="Ej: Entre Sitja y Gaebeler"
-                class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-fuchsia-500"
-              />
-            </div>
-            <div>
-              <label class="block text-[11px] text-slate-400 mb-1">Piso / Depto / Timbre</label>
-              <input
-                type="text"
-                id="custApt"
-                placeholder="Ej: PB B / Casa rejas negras"
+                placeholder="Ej: Entre Sitio de Montevideo y Oncativo"
                 class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-fuchsia-500"
               />
             </div>
           </div>
-        </div>
 
-        <!-- Info punto de retiro (solo si es Pickup) -->
-        <div id="pickupInfoWrapper" class="hidden p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-emerald-200">
-          <i class="fa-solid fa-location-dot text-emerald-400 mr-1"></i>
-          <strong>Retiro en punto de entrega:</strong> <span id="pickupAddressDisplay">Te pasamos la ubicación exacta apenas confirmes el pedido por WhatsApp.</span>
+          <!-- Medio de Pago -->
+          <div>
+            <label class="block text-[11px] font-bold text-slate-400 mb-1">Medio de Pago *</label>
+            <select
+              id="custPayment"
+              class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-fuchsia-500"
+            >
+              <option value="Transferencia / Mercado Pago">Transferencia / Mercado Pago</option>
+              <option value="Efectivo al recibir">Efectivo al recibir</option>
+            </select>
+          </div>
+
+          <!-- Notas extras -->
+          <div>
+            <label class="block text-[11px] font-bold text-slate-400 mb-1">Comentario adicional (opcional)</label>
+            <input
+              type="text"
+              id="custNotes"
+              placeholder="Ej: El timbre no anda, avisar por WhatsApp al llegar"
+              class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-fuchsia-500"
+            />
+          </div>
         </div>
       </div>
 
-      <!-- Método de Pago -->
-      <div class="space-y-1.5">
-        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
-          3. Forma de Pago
-        </label>
-        <div class="grid grid-cols-3 gap-2">
-          <button type="button" onclick="setPaymentMethod('Efectivo')" class="pay-btn py-2 px-2 rounded-xl border text-xs font-bold transition bg-fuchsia-600/20 border-fuchsia-500 text-white" data-pay="Efectivo">
-            💵 Efectivo
-          </button>
-          <button type="button" onclick="setPaymentMethod('Transferencia')" class="pay-btn py-2 px-2 rounded-xl border text-xs font-bold transition bg-night-950 border-slate-800 text-slate-400" data-pay="Transferencia">
-            🏦 Transferencia
-          </button>
-          <button type="button" onclick="setPaymentMethod('Mercado Pago')" class="pay-btn py-2 px-2 rounded-xl border text-xs font-bold transition bg-night-950 border-slate-800 text-slate-400" data-pay="Mercado Pago">
-            📱 Mercado Pago
-          </button>
+      <!-- Footer Drawer: Totales y Botón Enviar a WhatsApp -->
+      <div class="p-4 border-t border-slate-800 bg-night-950 space-y-3">
+        <div class="space-y-1 text-xs">
+          <div class="flex justify-between text-slate-400">
+            <span>Subtotal tragos (<span id="cartTotalLitros">0</span> Litros):</span>
+            <span id="cartSubtotal">$0</span>
+          </div>
+          <div class="flex justify-between text-slate-400">
+            <span>Costo de envío:</span>
+            <span id="cartShipping">$0</span>
+          </div>
+          <div class="flex justify-between text-base font-black text-white pt-1 border-t border-slate-800">
+            <span>TOTAL A PAGAR:</span>
+            <span id="cartGrandTotal" class="text-emerald-400">$0</span>
+          </div>
         </div>
-      </div>
 
-      <!-- Totales y Botón Final de WhatsApp -->
-      <div class="p-3.5 rounded-2xl bg-night-950 border border-slate-800 space-y-1.5 text-xs">
-        <div class="flex justify-between text-slate-400">
-          <span>Subtotal tragos (<span id="checkoutLitrosCount">0</span> L):</span>
-          <span id="checkoutSubtotal" class="font-mono">$0</span>
-        </div>
-        <div class="flex justify-between text-slate-400">
-          <span>Costo de envío:</span>
-          <span id="checkoutDeliveryFee" class="font-mono">$0</span>
-        </div>
-        <div class="flex justify-between text-base font-black text-white pt-1.5 border-t border-slate-800">
-          <span>TOTAL A PAGAR:</span>
-          <span id="checkoutGrandTotal" class="font-mono text-emerald-400">$0</span>
-        </div>
-      </div>
-
-      <div class="space-y-2">
         <button
-          onclick="sendOrderToWhatsApp()"
-          class="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-600/25 transition"
+          onclick="submitOrderToWhatsApp()"
+          class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition"
         >
-          <i class="fa-brands fa-whatsapp text-xl"></i>
+          <i class="fa-brands fa-whatsapp text-lg"></i>
           <span>Enviar Pedido por WhatsApp</span>
         </button>
 
         <button
-          onclick="copyOrderTextFallback()"
-          class="w-full py-2 px-4 rounded-xl bg-night-800 hover:bg-night-700 text-slate-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition"
+          onclick="copyOrderToClipboard()"
+          class="w-full py-2 px-3 rounded-xl bg-night-800 hover:bg-night-700 text-slate-300 text-xs font-bold flex items-center justify-center gap-1.5 transition"
         >
           <i class="fa-regular fa-copy"></i>
-          <span>Copiar texto del pedido (por si no abre WhatsApp)</span>
+          <span>Copiar texto del pedido</span>
         </button>
       </div>
     </div>
   </div>
 
   <!-- =====================================================================
-       MODAL 3: MODO DUEÑA (CONFIGURAR WHATSAPP, PRECIOS Y STOCK EN VIVO)
+       MODAL LOGIN MODO DUEÑA (PROTEGIDO CON CONTRASEÑA)
   ====================================================================== -->
-  <div id="ownerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
-    <div class="w-full max-w-2xl bg-night-900 border border-slate-700 rounded-3xl p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <div>
-          <h3 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
-            <i class="fa-solid fa-sliders text-fuchsia-400"></i>
-            <span>Modo Dueña • Configuración de Tienda</span>
-          </h3>
-          <p class="text-xs text-slate-400">Editá tu WhatsApp, precios o pausá tragos sin stock durante el finde.</p>
-        </div>
-        <button onclick="closeOwnerModal()" class="w-8 h-8 rounded-xl bg-night-800 text-slate-400 hover:text-white flex items-center justify-center">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <!-- Datos generales del emprendimiento -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-300 mb-1">Nombre de tu Barra / Marca</label>
-          <input type="text" id="cfgBrandName" class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white focus:border-fuchsia-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block font-bold text-slate-300 mb-1">Tu WhatsApp (con 549 + código área) *</label>
-          <input type="text" id="cfgWhatsapp" placeholder="Ej: 5491155443322" class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 font-mono text-emerald-400 focus:border-emerald-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block font-bold text-slate-300 mb-1">Costo de Envío a Domicilio ($)</label>
-          <input type="number" id="cfgDeliveryFee" step="100" class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 font-mono text-white focus:border-fuchsia-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block font-bold text-slate-300 mb-1">Días y Horarios</label>
-          <input type="text" id="cfgSchedule" class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white focus:border-fuchsia-500 focus:outline-none" />
-        </div>
-        <div class="sm:col-span-2">
-          <label class="block font-bold text-slate-300 mb-1">Zona / Info de Retiro (Take Away)</label>
-          <input type="text" id="cfgPickupInfo" class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white focus:border-fuchsia-500 focus:outline-none" />
-        </div>
-      </div>
-
-      <!-- Edición rápida de precios y disponibilidad de Combos y Tragos 1L -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <div class="flex items-center justify-between">
-          <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-300">
-            Precios por Litro y Stock Disponible
-          </h4>
-          <span class="text-[11px] text-slate-400">Destildá si te quedaste sin stock</span>
-        </div>
-
-        <div id="ownerItemsEditor" class="space-y-2 max-h-64 overflow-y-auto pr-1">
-          <!-- Lista editable -->
-        </div>
-      </div>
-
-      <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800">
-        <button
-          onclick="resetStoreDefaults()"
-          class="px-3 py-2 rounded-xl bg-night-800 hover:bg-red-950/60 text-slate-400 hover:text-red-300 text-xs font-bold transition"
-        >
-          Restaurar valores de fábrica
-        </button>
-
-        <div class="flex items-center gap-2">
-          <button onclick="closeOwnerModal()" class="px-4 py-2 rounded-xl bg-night-800 text-xs font-bold text-slate-300">Cancelar</button>
-          <button onclick="saveOwnerSettings()" class="px-5 py-2.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-extrabold text-white shadow-lg shadow-fuchsia-600/20">
-            Guardar Cambios
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast de Notificación -->
-  <div id="toast" class="fixed top-20 right-4 z-50 pointer-events-none opacity-0 transition-all duration-300 -translate-y-2">
-    <div class="px-4 py-2.5 rounded-xl bg-night-800 border border-fuchsia-500/40 text-white text-xs font-bold shadow-2xl flex items-center gap-2">
-      <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
-      <span id="toastText">Agregado</span>
-    </div>
-  </div>
-
-  <!-- =====================================================================
-       JAVASCRIPT: CATÁLOGO 1L, CARRITO, WHATSAPP Y MODO DUEÑA
-  ====================================================================== -->
-  <script>
-    const STORE_STORAGE_KEY = 'barra_1l_public_store_v1';
-
-    const DEFAULT_STORE_DATA = {
-      config: {
-        brandName: 'Barra 1L • Tragos & Previa',
-        whatsapp: '5491100000000',
-        deliveryFee: 1500,
-        schedule: 'Viernes, Sábados y Domingos • 20:00 a 03:30 hs',
-        pickupInfo: 'Zona Sur / Lanús (te pasamos la dirección exacta al confirmar por WhatsApp).',
-        orderCounter: 1040
-      },
-
-      combos: [
-        {
-          id: 'combo_previa_3l',
-          name: 'Pack Previa 3 Litros a Elección',
-          badge: 'MÁS PEDIDO',
-          desc: 'Elegí 3 litros entre Gin Tonic, Cuba Libre, Caipiroska, Campari con Naranja o Destornillador.',
-          price: 19500,
-          available: true,
-          variants: ['3x Gin Tonic Clásico', 'Gin Tonic + Campari + Cuba Libre', '2x Caipiroska + 1x Gin Tonic', 'Surtido a confirmar por WA']
-        },
-        {
-          id: 'combo_golosinero_2l',
-          name: 'Combo Viral 2 Litros Golosineros',
-          badge: 'IDEAL REDES',
-          desc: '2 vasos de 1 Litro súper cargados con gomitas Mogul, chicles, Rocklets y algodón de azúcar aparte.',
-          price: 16800,
-          available: true,
-          variants: ['Galactic Blast + Neon Candy Cloud', 'Galactic Blast + Candy Inferno', '2x Galactic Blast (1L c/u)', '2x Neon Candy Cloud (1L c/u)']
-        }
-      ],
-
-      drinks: [
-        // 1. CLÁSICOS DE PREVIA ($6.500 - $7.500)
-        {
-          id: 'gin_tonic_1l',
-          name: 'Gin Tonic Clásico (1 Litro)',
-          category: 'Clásicos de Previa',
-          price: 7200,
-          available: true,
-          desc: 'Gin, agua tónica bien fría, rodajas de limón/lima y hielo.',
-          variants: ['Con Limón', 'Con Lima']
-        },
-        {
-          id: 'gin_tonic_frutal_1l',
-          name: 'Gin Tonic Saborizado (1 Litro)',
-          category: 'Clásicos de Previa',
-          price: 7500,
-          available: true,
-          desc: 'Gin, pulpa natural de fruta a elección, agua tónica y limón.',
-          variants: ['Frutos Rojos', 'Maracuyá']
-        },
-        {
-          id: 'cuba_libre_1l',
-          name: 'Cuba Libre (1 Litro)',
-          category: 'Clásicos de Previa',
-          price: 6800,
-          available: true,
-          desc: 'Ron dorado, gaseosa cola bien fría, jugo de lima fresca y hielo.',
-          variants: []
-        },
-        {
-          id: 'caipiroska_1l',
-          name: 'Caipiroska (1 Litro)',
-          category: 'Clásicos de Previa',
-          price: 7200,
-          available: true,
-          desc: 'Vodka, lima machacada, almíbar y pulpa de fruta opcional.',
-          variants: ['Clásica (Lima)', 'Maracuyá', 'Frutilla']
-        },
-        {
-          id: 'campari_naranja_1l',
-          name: 'Campari con Naranja / Garibaldi (1 Litro)',
-          category: 'Clásicos de Previa',
-          price: 7000,
-          available: true,
-          desc: 'Campari y jugo de naranja bien frío con abundante hielo.',
-          variants: []
-        },
-        {
-          id: 'destornillador_1l',
-          name: 'Destornillador (1 Litro)',
-          category: 'Clásicos de Previa',
-          price: 6500,
-          available: true,
-          desc: 'Vodka y jugo de naranja bien frío. Clásico rendidor de previa.',
-          variants: []
-        },
-
-        // 2. LITRO GOLOSINEROS & NEÓN ($8.500 - $9.200)
-        {
-          id: 'galactic_blast_1l',
-          name: 'Galactic Blast (1 Litro)',
-          category: 'Litro Golosineros',
-          price: 8900,
-          available: true,
-          desc: 'Vodka, Blue Curaçao, jugo de arándanos/uva, gaseosa lima-limón, gomitas Mogul ácidas y Bubbaloo.',
-          variants: ['Jugo de Arándanos', 'Jugo de Uva']
-        },
-        {
-          id: 'neon_candy_cloud_1l',
-          name: 'Neon Candy Cloud (1 Litro)',
-          category: 'Litro Golosineros',
-          price: 9200,
-          available: true,
-          desc: 'Ron blanco, licor de melón, jugo de ananá, gaseosa lima-limón, Rocklets y algodón de azúcar aparte.',
-          variants: []
-        },
-        {
-          id: 'candy_inferno_1l',
-          name: 'Candy Inferno (1 Litro)',
-          category: 'Litro Golosineros',
-          price: 9200,
-          available: true,
-          desc: 'Tequila o Vodka, licor de durazno, jugo de naranja, pulpa de mango, Flynn Paff y gomitas.',
-          variants: ['Con Tequila', 'Con Vodka']
-        },
-        {
-          id: 'electrico_morado_1l',
-          name: 'Eléctrico Morado (1 Litro)',
-          category: 'Litro Golosineros',
-          price: 8500,
-          available: true,
-          desc: 'Vodka, Blue Curaçao, granadina efecto degradé violeta, limón y gaseosa lima-limón.',
-          variants: []
-        },
-        {
-          id: 'noche_neon_1l',
-          name: 'Noche Neón (1 Litro)',
-          category: 'Litro Golosineros',
-          price: 8600,
-          available: true,
-          desc: 'Gin, licor de melón, jugo de limón, almíbar y agua tónica.',
-          variants: []
-        },
-
-        // 3. DULCES & FRUTALES ($7.500 - $8.200)
-        {
-          id: 'daiquiri_frutal_1l',
-          name: 'Daiquiri Frutal Frozen (1 Litro)',
-          category: 'Dulces & Frutales',
-          price: 7800,
-          available: true,
-          desc: 'Ron blanco, pulpa de fruta licuada con hielo en punto frozen, limón y almíbar.',
-          variants: ['Frutilla', 'Durazno']
-        },
-        {
-          id: 'pina_colada_1l',
-          name: 'Piña Colada Frozen (1 Litro)',
-          category: 'Dulces & Frutales',
-          price: 8200,
-          available: true,
-          desc: 'Ron blanco, crema de coco y jugo de ananá licuado bien cremoso.',
-          variants: []
-        },
-        {
-          id: 'beso_frutilla_1l',
-          name: 'Beso de Frutilla Cremoso (1 Litro)',
-          category: 'Dulces & Frutales',
-          price: 8000,
-          available: true,
-          desc: 'Vodka, licor y pulpa de frutilla con toque cremoso dulce. Súper suave.',
-          variants: []
-        },
-        {
-          id: 'pantera_rosa_1l',
-          name: 'Pantera Rosa (1 Litro)',
-          category: 'Dulces & Frutales',
-          price: 7800,
-          available: true,
-          desc: 'Licor de frutilla, crema de coco, jugo de ananá y granadina. Suave y dulce.',
-          variants: []
-        },
-
-        // 4. SIN ALCOHOL ($4.800 - $5.500)
-        {
-          id: 'limonada_frutilla_menta_1l',
-          name: 'Limonada de Frutilla y Menta (1 Litro)',
-          category: 'Sin Alcohol',
-          price: 5000,
-          available: true,
-          desc: 'Jugo de limón exprimido, frutillas trituradas, menta fresca y almíbar.',
-          variants: []
-        },
-        {
-          id: 'mojito_virgen_1l',
-          name: 'Mojito Virgen Sin Alcohol (1 Litro)',
-          category: 'Sin Alcohol',
-          price: 4800,
-          available: true,
-          desc: 'Menta fresca, gajos de lima, almíbar, hielo y soda o gaseosa lima-limón.',
-          variants: ['Con Lima-Limón', 'Con Soda']
-        },
-        {
-          id: 'explosion_gomitas_1l',
-          name: 'Explosión de Gomitas Sin Alcohol (1 Litro)',
-          category: 'Sin Alcohol',
-          price: 5500,
-          available: true,
-          desc: 'Gaseosa lima-limón, granadina y brochette súper cargada de gomitas Mogul.',
-          variants: []
-        },
-        {
-          id: 'frappe_maracuya_1l',
-          name: 'Frappé de Maracuyá Sin Alcohol (1 Litro)',
-          category: 'Sin Alcohol',
-          price: 5200,
-          available: true,
-          desc: 'Pulpa de maracuyá licuada con hielo, jugo de limón y almíbar.',
-          variants: []
-        }
-      ]
-    };
-
-    // Estado global
-    let store = loadStore();
-    let activeCategory = 'all';
-    let cart = []; // { key, id, name, variant, note, price, qty, litrosPerUnit }
-    let deliveryMode = 'delivery'; // 'delivery' | 'pickup'
-    let paymentMethod = 'Efectivo';
-
-    // Variables del modal de producto
-    let modalItem = null;
-    let modalSelectedVariant = '';
-    let modalQty = 1;
-
-    // -------------------------------------------------------------------
-    // PERSISTENCIA Y HELPERS
-    // -------------------------------------------------------------------
-    function loadStore() {
-      try {
-        const saved = localStorage.getItem(STORE_STORAGE_KEY);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (parsed.config && parsed.drinks && parsed.combos) {
-            return parsed;
-          }
-        }
-      } catch (e) {
-        console.error('Error leyendo localStorage:', e);
-      }
-      return JSON.parse(JSON.stringify(DEFAULT_STORE_DATA));
-    }
-
-    function saveStore() {
-      try {
-        localStorage.setItem(STORE_STORAGE_KEY, JSON.stringify(store));
-      } catch (e) {
-        console.error('Error guardando localStorage:', e);
-      }
-    }
-
-    function formatARS(val) {
-      return '$' + Math.round(Number(val) || 0).toLocaleString('es-AR');
-    }
-
-    function showToast(msg, isError = false) {
-      const toast = document.getElementById('toast');
-      const text = document.getElementById('toastText');
-      const icon = document.getElementById('toastIcon');
-
-      text.textContent = msg;
-      icon.className = isError
-        ? 'fa-solid fa-circle-exclamation text-amber-400'
-        : 'fa-solid fa-circle-check text-emerald-400';
-
-      toast.classList.remove('opacity-0', '-translate-y-2');
-      toast.classList.add('opacity-100', 'translate-y-0');
-
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => {
-        toast.classList.add('opacity-0', '-translate-y-2');
-        toast.classList.remove('opacity-100', 'translate-y-0');
-      }, 2500);
-    }
-
-    // -------------------------------------------------------------------
-    // RENDERIZADO DE MARCA, CATEGORÍAS, COMBOS Y TRAGOS 1L
-    // -------------------------------------------------------------------
-    function applyBrandHeader() {
-      document.getElementById('brandTitleDisplay').textContent = store.config.brandName;
-      document.getElementById('brandScheduleDisplay').textContent = store.config.schedule;
-      document.getElementById('deliveryFeeLabel').textContent = `+${formatARS(store.config.deliveryFee)} envío`;
-      document.getElementById('pickupAddressDisplay').textContent = store.config.pickupInfo;
-    }
-
-    function renderCategoryPills() {
-      const categories = [
-        { id: 'all', label: 'Todos (1L)' },
-        { id: 'Clásicos de Previa', label: '🥃 Clásicos de Previa' },
-        { id: 'Litro Golosineros', label: '🍬 Litro Golosineros' },
-        { id: 'Dulces & Frutales', label: '🍓 Dulces & Frutales' },
-        { id: 'Sin Alcohol', label: '🍋 Sin Alcohol' }
-      ];
-
-      const container = document.getElementById('categoryPills');
-      container.innerHTML = categories.map(cat => {
-        const isActive = activeCategory === cat.id;
-        return `
-          <button
-            onclick="selectCategory('${cat.id}')"
-            class="px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition ${
-              isActive
-                ? 'bg-fuchsia-600 text-white shadow-md shadow-fuchsia-600/25'
-                : 'bg-night-800 text-slate-300 hover:bg-night-700 border border-slate-700/70'
-            }"
-          >
-            ${cat.label}
-          </button>
-        `;
-      }).join('');
-    }
-
-    function selectCategory(catId) {
-      activeCategory = catId;
-      renderCategoryPills();
-      renderCatalog();
-    }
-
-    function renderCombos() {
-      const grid = document.getElementById('combosGrid');
-      const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
-      const section = document.getElementById('combosSection');
-
-      if (query || activeCategory !== 'all') {
-        section.classList.add('hidden');
-        return;
-      }
-      section.classList.remove('hidden');
-
-      grid.innerHTML = store.combos.map(combo => {
-        const disabled = !combo.available;
-        return `
-          <div class="p-4 rounded-2xl bg-gradient-to-br from-night-900 via-night-900 to-fuchsia-950/30 border ${
-            disabled ? 'border-slate-800 opacity-60' : 'border-fuchsia-500/30 hover:border-fuchsia-500/70'
-          } flex flex-col justify-between gap-3 transition">
-            <div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-black uppercase">
-                  ${combo.badge}
-                </span>
-                ${disabled ? '<span class="text-[10px] font-bold text-red-400 uppercase">Agotado hoy</span>' : ''}
-              </div>
-              <h3 class="text-base font-black text-white mt-1.5">${combo.name}</h3>
-              <p class="text-xs text-slate-400 mt-1 leading-relaxed">${combo.desc}</p>
-            </div>
-
-            <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
-              <span class="font-mono font-black text-lg text-emerald-400">${formatARS(combo.price)}</span>
-              <button
-                ${disabled ? 'disabled' : `onclick="openProductModal('combo', '${combo.id}')"`}
-                class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${
-                  disabled
-                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                    : 'bg-fuchsia-600 hover:bg-fuchsia-500 text-white shadow-md shadow-fuchsia-600/20'
-                }"
-              >
-                ${disabled ? 'Sin stock' : '+ Elegir Combo'}
-              </button>
-            </div>
+  <div id="ownerLoginModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
+    <div class="w-full max-w-sm bg-night-900 border border-slate-700 rounded-3xl p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-fuchsia-600/20 text-fuchsia-400 flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved"></i>
           </div>
-        `;
-      }).join('');
-    }
-
-    function renderCatalog() {
-      renderCombos();
-      const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
-
-      const filtered = store.drinks.filter(d => {
-        const matchCat = activeCategory === 'all' || d.category === activeCategory;
-        const matchQ = !query ||
-          d.name.toLowerCase().includes(query) ||
-          d.desc.toLowerCase().includes(query) ||
-          d.category.toLowerCase().includes(query);
-        return matchCat && matchQ;
-      });
-
-      document.getElementById('catalogCountLabel').textContent = `${filtered.length} opciones de 1L`;
-
-      const grid = document.getElementById('drinksGrid');
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div class="col-span-full py-12 text-center bg-night-900 border border-slate-800 rounded-2xl">
-            <p class="text-sm text-slate-400">No encontramos tragos con "${query}".</p>
-          </div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(drink => {
-        const disabled = !drink.available;
-        return `
-          <article class="p-4 rounded-2xl bg-night-900 border ${
-            disabled ? 'border-slate-800/70 opacity-60' : 'border-slate-800 hover:border-slate-700'
-          } flex flex-col justify-between gap-3.5 transition">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between gap-2">
-                <span class="px-2 py-0.5 rounded-md bg-night-800 text-cyan-300 text-[10px] font-bold">
-                  ${drink.category}
-                </span>
-                <span class="px-2 py-0.5 rounded-md bg-violet-500/15 text-violet-300 font-mono text-[10px] font-extrabold">
-                  1 LITRO
-                </span>
-              </div>
-
-              <h3 class="text-base font-extrabold text-white leading-snug pt-0.5">${drink.name}</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">${drink.desc}</p>
-
-              ${drink.variants && drink.variants.length > 0
-                ? `<p class="text-[11px] text-fuchsia-300/90 font-medium pt-0.5">
-                     <i class="fa-solid fa-sparkles mr-1 text-[10px]"></i>Opciones: ${drink.variants.join(' / ')}
-                   </p>`
-                : ''
-              }
-            </div>
-
-            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-              <div>
-                <span class="text-[10px] text-slate-500 block leading-none">Precio x 1L</span>
-                <span class="font-mono font-black text-lg text-white">${formatARS(drink.price)}</span>
-              </div>
-
-              <button
-                ${disabled ? 'disabled' : `onclick="openProductModal('drink', '${drink.id}')"`}
-                class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 ${
-                  disabled
-                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                    : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/20'
-                }"
-              >
-                ${disabled ? 'Agotado' : '<i class="fa-solid fa-plus"></i><span>Agregar</span>'}
-              </button>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    // -------------------------------------------------------------------
-    // MODAL DE PRODUCTO / PERSONALIZACIÓN (1L)
-    // -------------------------------------------------------------------
-    function openProductModal(type, id) {
-      const source = type === 'combo' ? store.combos : store.drinks;
-      const item = source.find(x => x.id === id);
-      if (!item || !item.available) return;
-
-      modalItem = {
-        ...item,
-        type,
-        litrosPerUnit: id === 'combo_previa_3l' ? 3 : (id === 'combo_golosinero_2l' ? 2 : 1)
-      };
-      modalQty = 1;
-      modalSelectedVariant = (item.variants && item.variants.length > 0) ? item.variants[0] : '';
-
-      document.getElementById('modalDrinkBadge').textContent = type === 'combo' ? item.badge : '1 Litro (1.000 ml)';
-      document.getElementById('modalDrinkName').textContent = item.name;
-      document.getElementById('modalDrinkDesc').textContent = item.desc;
-      document.getElementById('modalCustomNote').value = '';
-
-      // Reset quick note chips
-      document.querySelectorAll('.quick-note-btn').forEach(btn => {
-        btn.classList.remove('bg-fuchsia-600/25', 'border-fuchsia-500', 'text-white');
-        btn.classList.add('bg-night-800', 'border-slate-700', 'text-slate-300');
-      });
-
-      // Render variantes si tiene
-      const varWrapper = document.getElementById('modalVariantsWrapper');
-      const varList = document.getElementById('modalVariantsList');
-      if (item.variants && item.variants.length > 0) {
-        varWrapper.classList.remove('hidden');
-        renderModalVariants();
-      } else {
-        varWrapper.classList.add('hidden');
-        varList.innerHTML = '';
-      }
-
-      updateModalQtyAndSubtotal();
-
-      const modal = document.getElementById('drinkModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeDrinkModal() {
-      const modal = document.getElementById('drinkModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function renderModalVariants() {
-      const varList = document.getElementById('modalVariantsList');
-      varList.innerHTML = modalItem.variants.map(v => {
-        const active = modalSelectedVariant === v;
-        return `
-          <button
-            type="button"
-            onclick="selectModalVariant('${v.replace(/'/g, "\\'")}')"
-            class="p-2 rounded-xl border text-xs font-bold text-left transition ${
-              active
-                ? 'bg-fuchsia-600/25 border-fuchsia-500 text-white'
-                : 'bg-night-950 border-slate-800 text-slate-400 hover:text-white'
-            }"
-          >
-            ${v}
-          </button>
-        `;
-      }).join('');
-    }
-
-    function selectModalVariant(v) {
-      modalSelectedVariant = v;
-      renderModalVariants();
-    }
-
-    function toggleQuickNote(btn, noteText) {
-      const input = document.getElementById('modalCustomNote');
-      const isSelected = btn.classList.contains('border-fuchsia-500');
-
-      if (isSelected) {
-        btn.classList.remove('bg-fuchsia-600/25', 'border-fuchsia-500', 'text-white');
-        btn.classList.add('bg-night-800', 'border-slate-700', 'text-slate-300');
-        input.value = input.value.replace(noteText, '').replace(/,\s*,/g, ',').replace(/^,\s*|,\s*$/g, '').trim();
-      } else {
-        btn.classList.add('bg-fuchsia-600/25', 'border-fuchsia-500', 'text-white');
-        btn.classList.remove('bg-night-800', 'border-slate-700', 'text-slate-300');
-        input.value = input.value ? `${input.value}, ${noteText}` : noteText;
-      }
-    }
-
-    function changeModalQty(delta) {
-      modalQty = Math.max(1, modalQty + delta);
-      updateModalQtyAndSubtotal();
-    }
-
-    function updateModalQtyAndSubtotal() {
-      document.getElementById('modalQtyDisplay').textContent = modalQty;
-      document.getElementById('modalSubtotalDisplay').textContent = formatARS(modalItem.price * modalQty);
-    }
-
-    function confirmAddToCart() {
-      if (!modalItem) return;
-      const note = document.getElementById('modalCustomNote').value.trim();
-      const key = `${modalItem.id}|${modalSelectedVariant}|${note}`;
-
-      const existing = cart.find(c => c.key === key);
-      if (existing) {
-        existing.qty += modalQty;
-      } else {
-        cart.push({
-          key,
-          id: modalItem.id,
-          name: modalItem.name,
-          variant: modalSelectedVariant,
-          note,
-          price: modalItem.price,
-          qty: modalQty,
-          litrosPerUnit: modalItem.litrosPerUnit
-        });
-      }
-
-      closeDrinkModal();
-      updateFloatingCartBar();
-      showToast(`¡Agregado: ${modalQty}x ${modalItem.name}!`);
-    }
-
-    // -------------------------------------------------------------------
-    // CARRITO Y CHECKOUT A WHATSAPP
-    // -------------------------------------------------------------------
-    function getCartTotals() {
-      let totalUnits = 0;
-      let totalLitros = 0;
-      let subtotal = 0;
-
-      cart.forEach(item => {
-        totalUnits += item.qty;
-        totalLitros += item.qty * (item.litrosPerUnit || 1);
-        subtotal += item.price * item.qty;
-      });
-
-      const deliveryCost = (deliveryMode === 'delivery' && totalUnits > 0) ? Number(store.config.deliveryFee || 0) : 0;
-      const grandTotal = subtotal + deliveryCost;
-
-      return { totalUnits, totalLitros, subtotal, deliveryCost, grandTotal };
-    }
-
-    function updateFloatingCartBar() {
-      const bar = document.getElementById('floatingCartBar');
-      const totals = getCartTotals();
-
-      if (totals.totalUnits === 0) {
-        bar.classList.add('translate-y-28', 'opacity-0', 'pointer-events-none');
-        bar.classList.remove('translate-y-0', 'opacity-100');
-      } else {
-        document.getElementById('floatingCartCount').textContent = `${totals.totalLitros}L`;
-        document.getElementById('floatingCartTotal').textContent = formatARS(totals.grandTotal);
-        bar.classList.remove('translate-y-28', 'opacity-0', 'pointer-events-none');
-        bar.classList.add('translate-y-0', 'opacity-100');
-      }
-    }
-
-    function openCheckoutModal() {
-      if (cart.length === 0) {
-        showToast('Tu pedido está vacío', true);
-        return;
-      }
-      renderCheckoutModal();
-      const modal = document.getElementById('checkoutModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeCheckoutModal() {
-      const modal = document.getElementById('checkoutModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function renderCheckoutModal() {
-      const container = document.getElementById('cartItemsContainer');
-      container.innerHTML = cart.map((item, idx) => `
-        <div class="p-3 rounded-xl bg-night-950 border border-slate-800 flex items-center justify-between gap-2">
-          <div class="min-w-0 flex-1">
-            <h4 class="text-xs sm:text-sm font-bold text-white truncate">${item.name}</h4>
-            ${item.variant ? `<span class="text-[11px] text-fuchsia-300 block">Sabor: ${item.variant}</span>` : ''}
-            ${item.note ? `<span class="text-[11px] text-slate-400 italic block">Nota: ${item.note}</span>` : ''}
-            <span class="text-xs font-mono font-bold text-emerald-400 mt-0.5 block">${formatARS(item.price * item.qty)}</span>
-          </div>
-
-          <div class="flex items-center gap-1.5 shrink-0">
-            <button onclick="updateCartItemQty(${idx}, -1)" class="w-7 h-7 rounded-lg bg-night-800 hover:bg-night-700 text-white font-bold text-xs flex items-center justify-center">-</button>
-            <span class="w-6 text-center font-mono text-xs font-extrabold text-white">${item.qty}</span>
-            <button onclick="updateCartItemQty(${idx}, 1)" class="w-7 h-7 rounded-lg bg-night-800 hover:bg-night-700 text-white font-bold text-xs flex items-center justify-center">+</button>
+          <div>
+            <h3 class="font-black text-base text-white">Acceso Modo Dueña</h3>
+            <p class="text-[11px] text-slate-400">Sección privada de administración</p>
           </div>
         </div>
-      `).join('');
-
-      const totals = getCartTotals();
-      document.getElementById('checkoutLitrosCount').textContent = totals.totalLitros;
-      document.getElementById('checkoutSubtotal').textContent = formatARS(totals.subtotal);
-      document.getElementById('checkoutDeliveryFee').textContent = deliveryMode === 'delivery' ? formatARS(totals.deliveryCost) : '$0 (Retira)';
-      document.getElementById('checkoutGrandTotal').textContent = formatARS(totals.grandTotal);
-    }
-
-    function updateCartItemQty(idx, delta) {
-      if (!cart[idx]) return;
-      cart[idx].qty += delta;
-      if (cart[idx].qty <= 0) {
-        cart.splice(idx, 1);
-      }
-      updateFloatingCartBar();
-      if (cart.length === 0) {
-        closeCheckoutModal();
-      } else {
-        renderCheckoutModal();
-      }
-    }
-
-    function setDeliveryMode(mode) {
-      deliveryMode = mode;
-      const btnDel = document.getElementById('btnDeliveryMode');
-      const btnPick = document.getElementById('btnPickupMode');
-      const addrWrap = document.getElementById('addressFieldsWrapper');
-      const pickWrap = document.getElementById('pickupInfoWrapper');
-
-      if (mode === 'delivery') {
-        btnDel.className = 'p-2.5 rounded-xl border text-left transition bg-fuchsia-600/20 border-fuchsia-500 text-white';
-        btnPick.className = 'p-2.5 rounded-xl border text-left transition bg-night-950 border-slate-800 text-slate-400 hover:text-white';
-        addrWrap.classList.remove('hidden');
-        pickWrap.classList.add('hidden');
-      } else {
-        btnPick.className = 'p-2.5 rounded-xl border text-left transition bg-emerald-600/20 border-emerald-500 text-white';
-        btnDel.className = 'p-2.5 rounded-xl border text-left transition bg-night-950 border-slate-800 text-slate-400 hover:text-white';
-        addrWrap.classList.add('hidden');
-        pickWrap.classList.remove('hidden');
-      }
-
-      updateFloatingCartBar();
-      renderCheckoutModal();
-    }
-
-    function setPaymentMethod(method) {
-      paymentMethod = method;
-      document.querySelectorAll('.pay-btn').forEach(btn => {
-        if (btn.dataset.pay === method) {
-          btn.className = 'pay-btn py-2 px-2 rounded-xl border text-xs font-bold transition bg-fuchsia-600/20 border-fuchsia-500 text-white';
-        } else {
-          btn.className = 'pay-btn py-2 px-2 rounded-xl border text-xs font-bold transition bg-night-950 border-slate-800 text-slate-400';
-        }
-      });
-    }
-
-    function buildWhatsAppOrderMessage(orderNumber) {
-      const custName = document.getElementById('custName').value.trim();
-      const custPhone = document.getElementById('custPhone').value.trim();
-      const custAddress = document.getElementById('custAddress').value.trim();
-      const custCross = document.getElementById('custCrossStreets').value.trim();
-      const custApt = document.getElementById('custApt').value.trim();
-      const totals = getCartTotals();
-
-      let lines = [];
-      lines.push(`🍹 *NUEVO PEDIDO #ORD-${orderNumber}*`);
-      lines.push(`*${store.config.brandName}*`);
-      lines.push(`────────────────────`);
-      lines.push(`👤 *Cliente:* ${custName}`);
-      lines.push(`📞 *Teléfono:* ${custPhone}`);
-
-      if (deliveryMode === 'delivery') {
-        lines.push(`🛵 *Modalidad:* Envío a Domicilio`);
-        lines.push(`📍 *Dirección:* ${custAddress}`);
-        if (custCross) lines.push(`🗺️ *Entre calles:* ${custCross}`);
-        if (custApt) lines.push(`🏢 *Piso / Depto / Ref:* ${custApt}`);
-      } else {
-        lines.push(`🏪 *Modalidad:* Retiro / Take Away`);
-      }
-
-      lines.push(`────────────────────`);
-      lines.push(`🛒 *DETALLE DEL PEDIDO (${totals.totalLitros} Litros totales):*`);
-      cart.forEach(item => {
-        const variantStr = item.variant ? ` (${item.variant})` : '';
-        lines.push(`• *${item.qty}x* ${item.name}${variantStr} — *${formatARS(item.price * item.qty)}*`);
-        if (item.note) {
-          lines.push(`   ↳ _${item.note}_`);
-        }
-      });
-
-      lines.push(`────────────────────`);
-      lines.push(`💵 *Subtotal tragos:* ${formatARS(totals.subtotal)}`);
-      if (deliveryMode === 'delivery') {
-        lines.push(`🛵 *Envío:* ${formatARS(totals.deliveryCost)}`);
-      }
-      lines.push(`✅ *TOTAL A PAGAR:* *${formatARS(totals.grandTotal)}*`);
-      lines.push(`💳 *Forma de pago:* ${paymentMethod}`);
-
-      return lines.join('\n');
-    }
-
-    function validateCustomerForm() {
-      const custName = document.getElementById('custName').value.trim();
-      const custPhone = document.getElementById('custPhone').value.trim();
-      const custAddress = document.getElementById('custAddress').value.trim();
-
-      if (!custName) {
-        showToast('Por favor ingresá tu nombre', true);
-        document.getElementById('custName').focus();
-        return false;
-      }
-      if (!custPhone) {
-        showToast('Por favor ingresá tu teléfono o WhatsApp', true);
-        document.getElementById('custPhone').focus();
-        return false;
-      }
-      if (deliveryMode === 'delivery' && !custAddress) {
-        showToast('Por favor ingresá tu dirección para el envío', true);
-        document.getElementById('custAddress').focus();
-        return false;
-      }
-      return true;
-    }
-
-    function sendOrderToWhatsApp() {
-      if (cart.length === 0) return;
-      if (!validateCustomerForm()) return;
-
-      // Incrementar contador de órdenes
-      store.config.orderCounter = (Number(store.config.orderCounter) || 1040) + 1;
-      saveStore();
-
-      const message = buildWhatsAppOrderMessage(store.config.orderCounter);
-      const cleanPhone = (store.config.whatsapp || '').replace(/\D/g, '');
-      const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
-
-      window.open(waUrl, '_blank');
-      showToast(`¡Orden #ORD-${store.config.orderCounter} generada!`);
-    }
-
-    function copyOrderTextFallback() {
-      if (cart.length === 0) return;
-      if (!validateCustomerForm()) return;
-
-      const orderNum = (Number(store.config.orderCounter) || 1040) + 1;
-      const message = buildWhatsAppOrderMessage(orderNum);
-
-      const textarea = document.createElement('textarea');
-      textarea.value = message;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast('¡Detalle del pedido copiado!');
-      } catch (e) {
-        showToast('No se pudo copiar el texto', true);
-      }
-      document.body.removeChild(textarea);
-    }
-
-    // -------------------------------------------------------------------
-    // MODO DUEÑA (CONFIGURACIÓN Y CONTROL DE STOCK RÁPIDO)
-    // -------------------------------------------------------------------
-    function openOwnerModal() {
-      document.getElementById('cfgBrandName').value = store.config.brandName;
-      document.getElementById('cfgWhatsapp').value = store.config.whatsapp;
-      document.getElementById('cfgDeliveryFee').value = store.config.deliveryFee;
-      document.getElementById('cfgSchedule').value = store.config.schedule;
-      document.getElementById('cfgPickupInfo').value = store.config.pickupInfo;
-
-      const editor = document.getElementById('ownerItemsEditor');
-      const allItems = [
-        ...store.combos.map(c => ({ ...c, _type: 'combo' })),
-        ...store.drinks.map(d => ({ ...d, _type: 'drink' }))
-      ];
-
-      editor.innerHTML = allItems.map(item => `
-        <div class="p-2.5 rounded-xl bg-night-950 border border-slate-800 flex items-center justify-between gap-2 text-xs">
-          <label class="flex items-center gap-2.5 min-w-0 flex-1 cursor-pointer">
-            <input
-              type="checkbox"
-              data-type="${item._type}"
-              data-id="${item.id}"
-              class="owner-avail-chk w-4 h-4 accent-emerald-500 rounded"
-              ${item.available ? 'checked' : ''}
-            />
-            <span class="font-semibold text-white truncate">${item.name}</span>
-          </label>
-
-          <div class="flex items-center gap-1 shrink-0">
-            <span class="text-slate-500">$</span>
-            <input
-              type="number"
-              step="100"
-              data-type="${item._type}"
-              data-id="${item.id}"
-              value="${item.price}"
-              class="owner-price-inp w-24 px-2 py-1 rounded-lg bg-night-900 border border-slate-700 text-right font-mono font-bold text-emerald-400 focus:outline-none focus:border-fuchsia-500"
-            />
-          </div>
-        </div>
-      `).join('');
-
-      const modal = document.getElementById('ownerModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeOwnerModal() {
-      const modal = document.getElementById('ownerModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function saveOwnerSettings() {
-      store.config.brandName = document.getElementById('cfgBrandName').value.trim() || DEFAULT_STORE_DATA.config.brandName;
-      store.config.whatsapp = document.getElementById('cfgWhatsapp').value.trim() || DEFAULT_STORE_DATA.config.whatsapp;
-      store.config.deliveryFee = Math.max(0, Number(document.getElementById('cfgDeliveryFee').value) || 0);
-      store.config.schedule = document.getElementById('cfgSchedule').value.trim() || DEFAULT_STORE_DATA.config.schedule;
-      store.config.pickupInfo = document.getElementById('cfgPickupInfo').value.trim() || DEFAULT_STORE_DATA.config.pickupInfo;
-
-      document.querySelectorAll('.owner-avail-chk').forEach(chk => {
-        const list = chk.dataset.type === 'combo' ? store.combos : store.drinks;
-        const found = list.find(x => x.id === chk.dataset.id);
-        if (found) found.available = chk.checked;
-      });
-
-      document.querySelectorAll('.owner-price-inp').forEach(inp => {
-        const list = inp.dataset.type === 'combo' ? store.combos : store.drinks;
-        const found = list.find(x => x.id === inp.dataset.id);
-        if (found) found.price = Math.max(0, Number(inp.value) || 0);
-      });
-
-      saveStore();
-      applyBrandHeader();
-      renderCatalog();
-      updateFloatingCartBar();
-      closeOwnerModal();
-      showToast('¡Configuración de la tienda guardada!');
-    }
-
-    function resetStoreDefaults() {
-      store = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA));
-      saveStore();
-      applyBrandHeader();
-      renderCatalog();
-      openOwnerModal();
-      showToast('Valores restaurados');
-    }
-
-    // -------------------------------------------------------------------
-    // INICIALIZACIÓN
-    // -------------------------------------------------------------------
-    window.addEventListener('DOMContentLoaded', () => {
-      applyBrandHeader();
-      renderCategoryPills();
-      renderCatalog();
-    });
-  </script>
-</body>
-</html>
+        <button onclick="closeOwnerLoginModal()" class="text-slate-400 hover:text-white">
+       
