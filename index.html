@@ -72,6 +72,64 @@
       </div>
 
       <!-- Botón discreto Modo Dueña -->
+      <!-- 1. Ventana emergente de contraseña para el Modo Dueña -->
+<div id="modalClaveDuena" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+  <div style="background:#1c192b; color:#fff; padding:20px; border-radius:14px; width:100%; max-width:340px; border:1px solid rgba(255,255,255,0.15);">
+    <h3 style="margin:0 0 10px; font-size:1.05rem;">Clave del Modo Dueña</h3>
+    <input id="inputClaveDuena" type="password" placeholder="Ingresá tu contraseña" style="width:100%; padding:10px; border-radius:8px; border:1px solid #444; background:#12101c; color:#fff; margin-bottom:8px;" />
+    <p id="errorClaveDuena" style="color:#ff6b8b; font-size:0.82rem; min-height:18px; margin:0 0 10px;"></p>
+    <div style="display:flex; gap:8px; justify-content:flex-end;">
+      <button type="button" onclick="cerrarModalClaveDuena()" style="padding:8px 12px; border-radius:8px; border:none; background:#332e4a; color:#fff; cursor:pointer;">Cancelar</button>
+      <button type="button" onclick="validarClaveDuena()" style="padding:8px 14px; border-radius:8px; border:none; background:#ff4d8d; color:#fff; font-weight:700; cursor:pointer;">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Cambiá "1994" por la contraseña o PIN que quieras usar
+  const CLAVE_MODO_DUENA = "1994";
+  let modoDuenaAutorizado = false;
+
+  function pedirClaveModoDuena(callbackAlEntrar) {
+    if (modoDuenaAutorizado) {
+      if (typeof callbackAlEntrar === "function") callbackAlEntrar();
+      return;
+    }
+    window._accionPostClaveDuena = callbackAlEntrar;
+    const modal = document.getElementById("modalClaveDuena");
+    const input = document.getElementById("inputClaveDuena");
+    const error = document.getElementById("errorClaveDuena");
+    error.textContent = "";
+    input.value = "";
+    modal.style.display = "flex";
+    setTimeout(() => input.focus(), 50);
+  }
+
+  function cerrarModalClaveDuena() {
+    document.getElementById("modalClaveDuena").style.display = "none";
+    window._accionPostClaveDuena = null;
+  }
+
+  function validarClaveDuena() {
+    const ingresada = document.getElementById("inputClaveDuena").value;
+    const error = document.getElementById("errorClaveDuena");
+    if (ingresada === CLAVE_MODO_DUENA) {
+      modoDuenaAutorizado = true;
+      const fn = window._accionPostClaveDuena;
+      cerrarModalClaveDuena();
+      if (typeof fn === "function") fn();
+    } else {
+      error.textContent = "Contraseña incorrecta.";
+    }
+  }
+
+  document.addEventListener("keydown", function (e) {
+    const modal = document.getElementById("modalClaveDuena");
+    if (modal && modal.style.display === "flex" && e.key === "Enter") {
+      validarClaveDuena();
+    }
+  });
+</script>
       <button
         onclick="openOwnerModal()"
         title="Configurar precios, stock y WhatsApp"
