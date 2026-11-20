@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es-AR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barra 1L • Pedidos de Tragos de 1 Litro</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            night: {
+              950: '#07090e',
+              900: '#0f131d',
+              850: '#141926',
+              800: '#1b2233',
+              700: '#27314a',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #07090e; }
+    ::-webkit-scrollbar-thumb { background: #27314a; border-radius: 9999px; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-night-950 text-slate-100 font-sans antialiased selection:bg-fuchsia-500 selection:text-white pb-28">
+
+  <!-- =====================================================================
+       HEADER / BANNER PRINCIPAL DE MARCA
+  ====================================================================== -->
+  <header class="sticky top-0 z-40 bg-night-900/95 backdrop-blur-md border-b border-slate-800/90">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-fuchsia-600 via-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-fuchsia-600/20 shrink-0">
+          <i class="fa-solid fa-martini-glass-citrus text-white text-xl"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 id="brandTitleDisplay" class="font-black text-base sm:text-xl text-white tracking-tight truncate">
+              Barra 1L • Tragos & Previa
+            </h1>
+            <span class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-extrabold uppercase">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Todo en 1 Litro
+            </span>
+          </div>
+          <p id="brandScheduleDisplay" class="text-xs text-slate-400 truncate mt-0.5">
+            Viernes, Sábados y Domingos • Delivery y Take Away
+          </p>
+        </div>
+      </div>
+
+      <!-- Botón discreto Modo Dueña -->
+      <button
+        onclick="openOwnerModal()"
+        title="Configurar precios, stock y WhatsApp"
+        class="px-3 py-2 rounded-xl bg-night-800 hover:bg-night-700 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition shrink-0"
+      >
+        <i class="fa-solid fa-sliders text-fuchsia-400"></i>
+        <span class="hidden sm:inline">Modo Dueña</span>
+      </button>
+    </div>
+
+    <!-- Barra de Búsqueda + Filtros por Categoría -->
+    <div class="max-w-5xl mx-auto px-4 pb-3 pt-1 space-y-2.5">
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+        <input
+          type="text"
+          id="searchInput"
+          oninput="renderCatalog()"
+          placeholder="Buscá tu trago de 1L (ej: Gin Tonic, Galactic, Campari, Daiquiri, Sin alcohol)..."
+          class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-night-950 border border-slate-800 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-fuchsia-500 transition"
+        />
+      </div>
+
+      <div id="categoryPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        <!-- Pills dinámicas -->
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       CONTENIDO PRINCIPAL: PROMOS + CATÁLOGO DE TRAGOS DE 1 LITRO
+  ====================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 pt-5 space-y-7">
+
+    <!-- SECCIÓN DE COMBOS PROMOCIONALES (1 LITRO) -->
+    <section id="combosSection" class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-sm sm:text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-fire text-amber-400"></i>
+          <span>Combos de Finde (1 Litro c/u)</span>
+        </h2>
+        <span class="text-[11px] text-slate-400">Ideales para compartir</span>
+      </div>
+
+      <div id="combosGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <!-- Tarjetas de combos -->
+      </div>
+    </section>
+
+    <!-- CATÁLOGO COMPLETO DE TRAGOS 1L -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 id="catalogSectionTitle" class="text-sm sm:text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-bottle-droplet text-cyan-400"></i>
+          <span>Carta Completa (Todos en Vaso/Botella de 1 Litro)</span>
+        </h2>
+        <span id="catalogCountLabel" class="text-xs text-slate-400 font-mono">18 opciones</span>
+      </div>
+
+      <div id="drinksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Tarjetas de tragos -->
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       BARRA FLOTANTE INFERIOR DEL CARRITO
+  ====================================================================== -->
+  <div id="floatingCartBar" class="fixed bottom-4 inset-x-0 z-40 px-4 transition-all duration-300 translate-y-28 opacity-0 pointer-events-none">
+    <div class="max-w-2xl mx-auto">
+      <button
+        onclick="openCheckoutModal()"
+        class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-fuchsia-600 via-violet-600 to-indigo-600 hover:from-fuchsia-500 hover:to-indigo-500 text-white shadow-2xl shadow-fuchsia-600/30 flex items-center justify-between gap-3 transition transform active:scale-[0.99]"
+      >
+        <div class="flex items-center gap-3">
+          <span id="floatingCartCount" class="w-8 h-8 rounded-xl bg-white/20 font-mono font-black text-sm flex items-center justify-center">
+            0
+          </span>
+          <div class="text-left">
+            <span class="block text-xs sm:text-sm font-extrabold leading-tight">Ver mi pedido y pedir por WhatsApp</span>
+            <span class="block text-[11px] text-fuchsia-100/80">Completá dirección y teléfono en el siguiente paso</span>
+          </div>
+        </div>
+        <span id="floatingCartTotal" class="font-mono font-black text-base sm:text-lg">
+          $0
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 1: PERSONALIZAR TRAGO DE 1 LITRO ANTES DE AGREGAR
+  ====================================================================== -->
+  <div id="drinkModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-0 sm:p-4">
+    <div class="w-full max-w-md bg-night-900 border-t sm:border border-slate-700 rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
+        <div>
+          <span id="modalDrinkBadge" class="px-2 py-0.5 rounded-md bg-fuchsia-500/20 text-fuchsia-300 text-[10px] font-extrabold uppercase">
+            1 Litro (1.000 ml)
+          </span>
+          <h3 id="modalDrinkName" class="text-lg font-black text-white mt-1">Nombre del Trago</h3>
+          <p id="modalDrinkDesc" class="text-xs text-slate-400 mt-0.5 leading-relaxed">Ingredientes</p>
+        </div>
+        <button onclick="closeDrinkModal()" class="w-8 h-8 rounded-xl bg-night-800 text-slate-400 hover:text-white flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Selector de Variante / Sabor (si aplica) -->
+      <div id="modalVariantsWrapper" class="space-y-1.5 hidden">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+          Elegí el sabor / variante:
+        </label>
+        <div id="modalVariantsList" class="grid grid-cols-2 gap-2">
+          <!-- Botones de variante -->
+        </div>
+      </div>
+
+      <!-- Opciones rápidas para delivery -->
+      <div class="space-y-1.5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+          ¿Cómo preferís recibirlo? (Opcional)
+        </label>
+        <div class="flex flex-wrap gap-1.5" id="quickNotesChips">
+          <button type="button" onclick="toggleQuickNote(this, 'Listo para tomar con hielo')" class="quick-note-btn px-2.5 py-1.5 rounded-xl bg-night-800 border border-slate-700 text-xs text-slate-300 hover:border-fuchsia-500 transition">
+            🧊 Listo con hielo
+          </button>
+          <button type="button" onclick="toggleQuickNote(this, 'Gaseosa / Tónica cerrada aparte')" class="quick-note-btn px-2.5 py-1.5 rounded-xl bg-night-800 border border-slate-700 text-xs text-slate-300 hover:border-fuchsia-500 transition">
+            🥤 Gaseosa/tónica aparte
+          </button>
+          <button type="button" onclick="toggleQuickNote(this, 'Poco hielo')" class="quick-note-btn px-2.5 py-1.5 rounded-xl bg-night-800 border border-slate-700 text-xs text-slate-300 hover:border-fuchsia-500 transition">
+            ❄️ Poco hielo
+          </button>
+        </div>
+        <input
+          type="text"
+          id="modalCustomNote"
+          placeholder="¿Alguna otra aclaración? (Ej: sin limón, extra dulce...)"
+          class="w-full mt-1.5 px-3 py-2 rounded-xl bg-night-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-fuchsia-500"
+        />
+      </div>
+
+      <!-- Cantidad de Litros + Botón Confirmar -->
+      <div class="pt-2 border-t border-slate-800 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 bg-night-950 border border-slate-800 rounded-2xl p-1.5">
+          <button onclick="changeModalQty(-1)" class="w-9 h-9 rounded-xl bg-night-800 hover:bg-night-700 text-white font-black text-base flex items-center justify-center">-</button>
+          <span id="modalQtyDisplay" class="w-8 text-center font-mono font-black text-base text-white">1</span>
+          <button onclick="changeModalQty(1)" class="w-9 h-9 rounded-xl bg-night-800 hover:bg-night-700 text-white font-black text-base flex items-center justify-center">+</button>
+        </div>
+
+        <button
+          onclick="confirmAddToCart()"
+          class="flex-1 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm flex items-center justify-between shadow-lg shadow-emerald-600/20 transition"
+        >
+          <span>Agregar al pedido</span>
+          <span id="modalSubtotalDisplay" class="font-mono font-black">$0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 2: CARRITO, DATOS DEL CLIENTE Y ENVÍO A WHATSAPP
+  ====================================================================== -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/85 backdrop-blur-sm p-0 sm:p-4">
+    <div class="w-full max-w-lg bg-night-900 border-t sm:border border-slate-700 rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl max-h-[94vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h3 class="text-lg font-black text-white flex items-center gap-2">
+            <i class="fa-solid fa-bag-shopping text-fuchsia-400"></i>
+            <span>Tu Pedido de 1 Litro</span>
+          </h3>
+          <p class="text-[11px] text-slate-400">Completá tus datos para enviarlo directo por WhatsApp</p>
+        </div>
+        <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-xl bg-night-800 text-slate-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Lista de items en el carrito -->
+      <div id="cartItemsContainer" class="space-y-2.5 max-h-52 overflow-y-auto pr-1">
+        <!-- Items dinámicos -->
+      </div>
+
+      <!-- Modalidad de Entrega -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+          1. ¿Cómo lo recibís?
+        </label>
+        <div class="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            id="btnDeliveryMode"
+            onclick="setDeliveryMode('delivery')"
+            class="p-2.5 rounded-xl border text-left transition bg-fuchsia-600/20 border-fuchsia-500 text-white"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold"><i class="fa-solid fa-motorcycle mr-1 text-fuchsia-400"></i> Envío a Domicilio</span>
+            </div>
+            <span id="deliveryFeeLabel" class="text-[11px] text-slate-300 font-mono block mt-0.5">+$1.500 envío</span>
+          </button>
+
+          <button
+            type="button"
+            id="btnPickupMode"
+            onclick="setDeliveryMode('pickup')"
+            class="p-2.5 rounded-xl border text-left transition bg-night-950 border-slate-800 text-slate-400 hover:text-white"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold"><i class="fa-solid fa-store mr-1 text-emerald-400"></i> Retiro / Take Away</span>
+            </div>
+            <span class="text-[11px] text-emerald-400 font-semibold block mt-0.5">Sin cargo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Datos del Cliente (Nombre, Teléfono, Dirección) -->
+      <div class="space-y-2.5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+          2. Tus Datos de Contacto y Entrega
+        </label>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">Tu Nombre *</label>
+            <input
+              type="text"
+              id="custName"
+              placeholder="Ej: Martín Pérez"
+              class="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:border-fuchsia-500"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">Tu Teléfono / WhatsApp *</label>
+            <input
+              type="tel"
+              id="custPhone"
+              placeholder="Ej: 1
